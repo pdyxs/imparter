@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 namespace Imparter.View
 {
@@ -45,6 +46,11 @@ namespace Imparter.View
             versionInfo.Show();
         }
 
+#if UNITY_WEBGL
+        [DllImport("__Internal")]
+        private static extern void ImparterOpenLink(string str);
+#endif
+
         private void OnEmailClicked()
         {
             var str = "mailto:" + GameInfo.Get().feedbackEmail +
@@ -53,14 +59,11 @@ namespace Imparter.View
                                 (GameInfo.Get().isBetweenVersions ? "*" : "") +
                                           "%20Feedback";
 
-            if (Application.platform == RuntimePlatform.WebGLPlayer)
-            {
-                Application.ExternalEval("window.open(\"" + str + "\",\"_blank\")");
-            }
-            else
-            {
-                Application.OpenURL(str);
-            }
+#if UNITY_WEBGL
+            ImparterOpenLink(str);
+#else
+            Application.OpenURL(str);
+#endif
         }
     }
 }
