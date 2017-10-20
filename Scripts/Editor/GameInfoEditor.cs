@@ -13,25 +13,6 @@ namespace Imparter
 
         private ReorderableList versionList;
 
-        [MenuItem("Assets/GameInfo")]
-        public static void Create()
-        {
-            GameInfo info = GameInfo.Get();
-            if (info == null)
-            {
-                info = ScriptableObject.CreateInstance<GameInfo>();
-                if (!AssetDatabase.IsValidFolder("Assets/Resources"))
-                {
-                    AssetDatabase.CreateFolder("Assets", "Resources");
-                }
-                AssetDatabase.CreateAsset(info, "Assets/Resources/Game Info.asset");
-                AssetDatabase.SaveAssets();
-            }
-
-            EditorUtility.FocusProjectWindow();
-            Selection.activeObject = info;
-        }
-
         private void OnEnable()
         {
             versionList = new ReorderableList(serializedObject,
