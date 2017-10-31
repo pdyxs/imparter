@@ -1,0 +1,10 @@
+{
+  "name": "imparter",
+  "version": "0.0.1",
+  "description": "Unity module for displaying info about a game",
+  "author": "Paul Sztajer",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "somethington": "https://github.com/pdyxs/Somethington.git"
+  }
+}
